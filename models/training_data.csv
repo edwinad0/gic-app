@@ -1,0 +1,302 @@
+id,Task,Classification
+1,Automatically run nightly regression test suites,Automatable
+2,Generate build deployment scripts,Automatable
+3,Monitor application uptime and trigger alerts,Automatable
+4,Perform automated code linting,Automatable
+5,"Execute vulnerability scans on repos
+",Automatable
+6,Patch known software dependencies,Automatable
+7,Auto‑generate API documentation from code,Automatable
+8,Perform synthetic test data generation,Automatable
+9,Schedule server scaling based on load,Automatable
+10,Log error aggregation and categorisation,Automatable
+11,Generate weekly KPI dashboards,Automatable
+12,Refresh business intelligence datasets,Automatable
+13,Auto‑format financial reports,Automatable
+14,Produce usage analytics summaries,Automatable
+15,Tag data sets with metadata,Automatable
+16,Validate incoming data quality,Automatable
+17,Reconcile transactional records,Automatable
+18,Flag data anomalies,Automatable
+19,Archive historical datasets,Automatable
+20,Perform ETL job execution,Automatable
+21,Generate standard customer invoices,Automatable
+22,Match purchase orders to invoices,Automatable
+23,Process expense claims against policy,Automatable
+24,Perform VAT calculations,Automatable
+25,Generate standard contract templates,Automatable
+26,Apply pricing rules to quotations,Automatable
+27,Process supplier onboarding forms,Automatable
+28,Automate billing reminders,Automatable
+29,Categorise operating expenses,Automatable
+30,Validate budget submission arithmetic,Automatable
+31,Schedule onboarding checklists,Automatable
+32,Generate employment contracts,Automatable
+33,Process payroll calculations,Automatable
+34,Administer benefits enrolment,Automatable
+35,Track attendance records,Automatable
+36,Issue policy acknowledgement reminders,Automatable
+37,Store personnel records,Automatable
+38,Validate right‑to‑work documents,Automatable
+39,Generate holiday balance statements,Automatable
+40,Maintain organisation charts,Automatable
+41,Auto‑assign IT tickets by category,Automatable
+42,Reset user passwords,Automatable
+43,Provision standard user accounts,Automatable
+44,Decommission leavers’ system access,Automatable
+45,Apply device compliance policies,Automatable
+46,Run endpoint health checks,Automatable
+47,Deploy software updates,Automatable
+48,Monitor licence utilisation,Automatable
+49,Auto‑respond to common IT queries,Automatable
+50,Enforce data retention rules,Automatable
+51,Issue standard RFQs,Automatable
+52,Compare supplier price lists,Automatable
+53,Track delivery status,Automatable
+54,Update inventory records,Automatable
+55,Generate reorder alerts,Automatable
+56,Validate supplier certificates,Automatable
+57,Match shipping notices,Automatable
+58,Process goods‑received notes,Automatable
+59,Track contract expiry dates,Automatable
+60,Generate supplier scorecards,Automatable
+61,Run compliance control checks,Automatable
+62,Generate audit evidence packs,Automatable
+63,Log access activity,Automatable
+64,Validate policy compliance metrics,Automatable
+65,Monitor regulatory reporting deadlines,Automatable
+66,Produce risk register updates,Automatable
+67,Check segregation‑of‑duties rules,Automatable
+68,Archive compliance submissions,Automatable
+69,Apply data anonymisation rules,Automatable
+70,Track corrective actions,Automatable
+71,Schedule social media posts,Automatable
+72,Publish website updates,Automatable
+73,Optimise SEO tags,Automatable
+74,Generate email campaign variants,Automatable
+75,A/B test landing pages,Automatable
+76,Track campaign performance,Automatable
+77,Update CRM contact fields,Automatable
+78,Clean mailing lists,Automatable
+79,Trigger lead nurturing workflows,Automatable
+80,Localise standard content,Automatable
+81,Update project status dashboards,Automatable
+82,Track milestone completion,Automatable
+83,Log timesheet data,Automatable
+84,Generate Gantt chart updates,Automatable
+85,Recalculate critical paths,Automatable
+86,Send project reminders,Automatable
+87,Produce progress reports,Automatable
+88,Archive project artefacts,Automatable
+89,Track dependency changes,Automatable
+90,Maintain RAID logs,Automatable
+91,Perform document version control,Automatable
+92,Convert file formats,Automatable
+93,OCR scanned documents,Automatable
+94,Translate standard documents,Automatable
+95,Auto‑summarise meeting transcripts,Automatable
+96,Route approval workflows,Automatable
+97,Enforce naming conventions,Automatable
+98,Monitor storage usage,Automatable
+99,Perform system backups,Automatable
+100,Restore test environments,Automatable
+101,Designing application architectures,Augmentable
+102,Reviewing pull requests,Augmentable
+103,Optimising algorithms,Augmentable
+104,Debugging complex system issues,Augmentable
+105,Planning technical roadmaps,Augmentable
+106,Refactoring legacy systems,Augmentable
+107,Assessing technical debt,Augmentable
+108,Defining coding standards,Augmentable
+109,Evaluating new tech stacks,Augmentable
+110,Estimating development effort,Augmentable
+111,Interpreting business trends,Augmentable
+112,Designing data models,Augmentable
+113,Selecting KPIs,Augmentable
+114,Creating predictive models,Augmentable
+115,Interpreting anomaly causes,Augmentable
+116,Validating analytical assumptions,Augmentable
+117,Building simulation scenarios,Augmentable
+118,Designing dashboards,Augmentable
+119,Translating insights to business actions,Augmentable
+120,Performing root‑cause analysis,Augmentable
+121,Developing pricing strategies,Augmentable
+122,Evaluating customer profitability,Augmentable
+123,Designing product bundles,Augmentable
+124,Analysing market demand,Augmentable
+125,Forecasting sales performance,Augmentable
+126,Evaluating M&A opportunities,Augmentable
+127,Reviewing commercial risk,Augmentable
+128,Preparing investment cases,Augmentable
+129,Assessing contract value,Augmentable
+130,Supporting bid proposals,Augmentable
+131,Preparing annual budgets,Augmentable
+132,Forecasting cash flow,Augmentable
+133,Analysing cost drivers,Augmentable
+134,Supporting capital allocation decisions,Augmentable
+135,Financial scenario modelling,Augmentable
+136,Interpreting financial variances,Augmentable
+137,Reviewing tax strategy implications,Augmentable
+138,Assessing financial controls,Augmentable
+139,Preparing board finance materials,Augmentable
+140,Supporting external audits,Augmentable
+141,Screening candidate CVs,Augmentable
+142,Designing role profiles,Augmentable
+143,Conducting workforce planning,Augmentable
+144,Analysing attrition trends,Augmentable
+145,Designing learning programmes,Augmentable
+146,Supporting performance reviews,Augmentable
+147,Interpreting engagement surveys,Augmentable
+148,Planning succession pipelines,Augmentable
+149,Supporting diversity initiatives,Augmentable
+150,Designing reward frameworks,Augmentable
+151,Mapping business processes,Augmentable
+152,Identifying automation opportunities,Augmentable
+153,Conducting process benchmarking,Augmentable
+154,Designing operating models,Augmentable
+155,Measuring process efficiency,Augmentable
+156,Running continuous improvement initiatives,Augmentable
+157,Supporting lean transformations,Augmentable
+158,Designing service catalogues,Augmentable
+159,Analysing bottlenecks,Augmentable
+160,Supporting change initiatives,Augmentable
+161,Interpreting regulatory requirements,Augmentable
+162,Performing risk assessments,Augmentable
+163,Designing internal controls,Augmentable
+164,Reviewing audit findings,Augmentable
+165,Assessing cyber risk exposure,Augmentable
+166,Evaluating data privacy impact,Augmentable
+167,Supporting compliance training,Augmentable
+168,Prioritising remediation actions,Augmentable
+169,Investigating incidents,Augmentable
+170,Supporting regulator engagement,Augmentable
+171,Developing brand strategy,Augmentable
+172,Interpreting customer research,Augmentable
+173,Designing customer journeys,Augmentable
+174,Segmenting customer bases,Augmentable
+175,Planning campaigns,Augmentable
+176,Analysing competitor activity,Augmentable
+177,Supporting account‑based marketing,Augmentable
+178,Improving customer retention,Augmentable
+179,Crafting value propositions,Augmentable
+180,Supporting product launches,Augmentable
+181,Designing transformation roadmaps,Augmentable
+182,Managing interdependent programmes,Augmentable
+183,Stakeholder impact analysis,Augmentable
+184,Tracking benefit realisation,Augmentable
+185,Supporting governance forums,Augmentable
+186,Facilitating workshops,Augmentable
+187,Managing risks and issues,Augmentable
+188,Planning change communications,Augmentable
+189,Supporting adoption measurement,Augmentable
+190,Evaluating delivery performance,Augmentable
+191,Drafting bespoke contract clauses,Augmentable
+192,Reviewing contract risk,Augmentable
+193,Negotiation preparation,Augmentable
+194,Interpreting legal advice,Augmentable
+195,Supporting dispute resolution,Augmentable
+196,Managing IP considerations,Augmentable
+197,Reviewing regulatory changes,Augmentable
+198,Supporting litigation strategy,Augmentable
+199,Managing contractual variations,Augmentable
+200,Advising commercial teams,Augmentable
+201,Setting company vision and strategy,Human-Critical
+202,Making final investment decisions,Human-Critical
+203,Establishing company values,Human-Critical
+204,Leading cultural transformation,Human-Critical
+205,Taking corporate accountability,Human-Critical
+206,Managing executive succession,Human-Critical
+207,Representing company publicly,Human-Critical
+208,Balancing stakeholder priorities,Human-Critical
+209,Approving enterprise risk appetite,Human-Critical
+210,Crisis leadership,Human-Critical
+211,Conducting sensitive employee relations cases,Human-Critical
+212,Managing disciplinary actions,Human-Critical
+213,Leading collective consultations,Human-Critical
+214,Making redundancy decisions,Human-Critical
+215,Handling whistleblowing cases,Human-Critical
+216,Mediating workplace conflicts,Human-Critical
+217,Negotiating union agreements,Human-Critical
+218,Leading leadership development,Human-Critical
+219,Mentoring senior talent,Human-Critical
+220,Upholding ethical behaviour,Human-Critical
+221,Leading strategic negotiations,Human-Critical
+222,Approving key customer contracts,Human-Critical
+223,Managing strategic partnerships,Human-Critical
+224,Navigating geopolitical business risks,Human-Critical
+225,Making pricing exceptions,Human-Critical
+226,Resolving major disputes,Human-Critical
+227,Building long‑term customer trust,Human-Critical
+228,Approving supplier terminations,Human-Critical
+229,Leading alliance strategy,Human-Critical
+230,Handling reputational risk,Human-Critical
+231,Board decision‑making,Human-Critical
+232,Approving corporate governance frameworks,Human-Critical
+233,Ethical trade‑off decisions,Human-Critical
+234,Responding to regulators,Human-Critical
+235,Handling legal liability judgments,Human-Critical
+236,Approving data ethics policies,Human-Critical
+237,Investigating misconduct at executive level,Human-Critical
+238,Making compliance exception decisions,Human-Critical
+239,Oversight of audit committees,Human-Critical
+240,Ensuring fiduciary duties,Human-Critical
+241,Deciding transformation priorities,Human-Critical
+242,Shutting down major programmes,Human-Critical
+243,Authorising organisational redesign,Human-Critical
+244,Managing enterprise‑wide change fatigue,Human-Critical
+245,Aligning senior stakeholders,Human-Critical
+246,Leading post‑merger integration,Human-Critical
+247,Managing divestments,Human-Critical
+248,Approving outsourcing strategy,Human-Critical
+249,Balancing innovation vs stability,Human-Critical
+250,Championing strategic initiatives,Human-Critical
+251,Managing key customer relationships,Human-Critical
+252,Handling major customer escalations,Human-Critical
+253,Building trust with OEM partners,Human-Critical
+254,Negotiating joint ventures,Human-Critical
+255,Managing brand reputation crises,Human-Critical
+256,Approving public messaging,Human-Critical
+257,Building government relationships,Human-Critical
+258,Representing industry interests,Human-Critical
+259,Managing public inquiries,Human-Critical
+260,Leading sustainability commitments,Human-Critical
+261,Setting product vision,Human-Critical
+262,Approving new product direction,Human-Critical
+263,Balancing safety vs cost decisions,Human-Critical
+264,Approving autonomous technology strategy,Human-Critical
+265,Managing ethical AI use,Human-Critical
+266,Deciding intellectual property strategy,Human-Critical
+267,Aligning innovation investment,Human-Critical
+268,Leading R&D prioritisation,Human-Critical
+269,Sponsoring breakthrough innovation,Human-Critical
+270,Accepting innovation risk,Human-Critical
+271,Designing company structure,Human-Critical
+272,Approving leadership appointments,Human-Critical
+273,Managing organisational trust,Human-Critical
+274,Defining accountability models,Human-Critical
+275,Balancing performance and wellbeing,Human-Critical
+276,Handling sensitive communications,Human-Critical
+277,Leading company‑wide town halls,Human-Critical
+278,Upholding organisational integrity,Human-Critical
+279,Protecting company legacy,Human-Critical
+280,Shaping employer brand,Human-Critical
+281,Responding to cyber breaches,Human-Critical
+282,Managing fatal incidents investigations,Human-Critical
+283,Deciding plant closures (commercial side impact),Human-Critical
+284,Addressing major legal claims,Human-Critical
+285,Managing activist investor pressure,Human-Critical
+286,Responding to supply chain collapses,Human-Critical
+287,Handling major compliance failures,Human-Critical
+288,Navigating public scrutiny,Human-Critical
+289,Making emergency funding decisions,Human-Critical
+290,Deciding litigation settlements,Human-Critical
+291,Building executive relationships,Human-Critical
+292,Coaching senior leaders,Human-Critical
+293,Handling confidential information,Human-Critical
+294,Exercising moral judgment,Human-Critical
+295,Inspiring workforce confidence,Human-Critical
+296,Leading through uncertainty,Human-Critical
+297,Managing power dynamics,Human-Critical
+298,Balancing long‑term vs short‑term gain,Human-Critical
+299,Setting leadership tone,Human-Critical
+300,Being ultimately accountable,Human-Critical

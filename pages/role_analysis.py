@@ -1,0 +1,194 @@
+from dash import html, dcc, callback, Input, Output, register_page
+import dash_bootstrap_components as dbc
+
+from db_helpers import (
+    get_all_profiles,
+    get_tasks_for_role,
+    get_weighted_skills_for_title,
+    count_people_in_role
+)
+from models.classifier import classify_task
+
+
+register_page(__name__, path="/role_analysis")
+
+
+# ------------------------------------------------------------
+# PAGE LAYOUT
+# ------------------------------------------------------------
+def layout():
+    profiles = get_all_profiles()
+
+    # Extract unique job titles
+    options = sorted({p[2].title() for p in profiles})
+
+    return dbc.Container([
+        html.H2("Role Analysis"),
+        html.P("Select a job title to view top skills and task automation classification."),
+
+        dcc.Dropdown(
+            id="role_dropdown",
+            options=[{"label": title, "value": title} for title in options],
+            placeholder="Select a job role...",
+            clearable=True
+        ),
+
+        html.Br(),
+
+        html.Div(id="skills_output")
+    ], fluid=True)
+
+
+# ------------------------------------------------------------
+# CALLBACK: SHOW SKILLS + TASK CLASSIFICATION
+# ------------------------------------------------------------
+@callback(
+    Output("skills_output", "children"),
+    Input("role_dropdown", "value")
+)
+def show_skills(title):
+    if not title:
+        return ""
+
+    # Count people in this role
+    num_people = count_people_in_role(title)
+
+    # Weighted skills for this role
+    weighted_skills = get_weighted_skills_for_title(title)
+
+    if not weighted_skills:
+        return dbc.Alert("No skills found for this role.", color="warning")
+
+    # -----------------------------
+    # TOP 5 SKILLS SECTION
+    # -----------------------------
+    top5 = weighted_skills[:5]  # already sorted in DB
+
+    top5_list = html.Ul([
+        html.Li(f"{skill}") for skill, weight in top5
+    ])
+
+    top5_card = dbc.Card(
+        dbc.CardBody([
+            html.H4("Top 5 Skills for This Role"),
+            top5_list
+        ])
+    )
+
+    # -----------------------------
+    # TASK CLASSIFICATION SECTION
+    # -----------------------------
+    tasks = get_tasks_for_role(title)
+
+    classified = []
+    if not tasks:
+        task_card = dbc.Alert("No tasks found for this role.", color="warning")
+    else:
+        classified = [(task, classify_task(task)) for task in tasks]
+
+        task_rows = [
+            html.Tr([html.Td(task), html.Td(label)])
+            for task, label in classified
+        ]
+
+        task_table = dbc.Table(
+            [
+                html.Thead(html.Tr([
+                    html.Th("Task"),
+                    html.Th("Classification")
+                ])),
+                html.Tbody(task_rows)
+            ],
+            bordered=True,
+            striped=True,
+            hover=True
+        )
+
+        task_card = dbc.Card(
+            dbc.CardBody([
+                html.H4("Task Automation Classification"),
+                task_table
+            ])
+        )
+
+    # -----------------------------
+    # TASK CLASSIFICATION PERCENTAGES
+    # -----------------------------
+    labels = [label for _, label in classified]
+
+    total = len(labels)
+    auto = labels.count("Automatable")
+    aug = labels.count("Augmentable")
+    human = labels.count("Human-Critical")
+
+    auto_pct = round((auto / total) * 100, 1) if total else 0
+    aug_pct = round((aug / total) * 100, 1) if total else 0
+    human_pct = round((human / total) * 100, 1) if total else 0
+
+    percentage_bar = dbc.Card(
+        dbc.CardBody([
+            html.H4("Task Classification Breakdown"),
+
+            html.Div([
+                # Automatable
+                html.Div(
+                    style={
+                        "width": f"{auto_pct}%",
+                        "backgroundColor": "#1F32E0",  
+                        "height": "30px",
+                        "display": "inline-block",
+                        "textAlign": "center",
+                        "color": "white",
+                        "fontWeight": "bold",
+                    },
+                    children=f"{auto_pct}% Automatable" if auto_pct > 5 else ""
+                ),
+
+                # Assistive
+                html.Div(
+                    style={
+                        "width": f"{aug_pct}%",
+                        "backgroundColor": "#ffc107",  
+                        "height": "30px",
+                        "display": "inline-block",
+                        "textAlign": "center",
+                        "color": "black",
+                        "fontWeight": "bold",
+                    },
+                    children=f"{aug_pct}% Augmentable" if aug_pct > 5 else ""
+                ),
+
+                # Human-Critical
+                html.Div(
+                    style={
+                        "width": f"{human_pct}%",
+                        "backgroundColor": "#50c21b",  
+                        "height": "30px",
+                        "display": "inline-block",
+                        "textAlign": "center",
+                        "color": "white",
+                        "fontWeight": "bold",
+                    },
+                    children=f"{human_pct}% Human-Critical" if human_pct > 5 else ""
+                ),
+            ], style={
+                "width": "100%",
+                "borderRadius": "5px",
+                "overflow": "hidden",
+                "display": "flex"
+            })
+        ])
+    )
+
+    # -----------------------------
+    # RETURN PAGE CONTENT
+    # -----------------------------
+    return html.Div([
+        html.H5(f"Currently {num_people} employee(s) in this role.", style={"color": "blue"}),
+        html.Br(),
+        top5_card,
+        html.Br(),
+        percentage_bar,
+        html.Br(),
+        task_card
+    ])
