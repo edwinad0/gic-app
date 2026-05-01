@@ -18,6 +18,7 @@ app.layout = html.Div([
             dbc.NavItem(dbc.NavLink("Manage Profiles", href="/manage_profiles")),
             dbc.NavItem(dbc.NavLink("Role Analysis", href="/role_analysis")),
             dbc.NavItem(dbc.NavLink("Skills Map", href="/skills_map")),
+            dbc.NavItem(dbc.NavLink("FAQs", href="/questions")),
             dbc.NavItem(dbc.NavLink("Training Data", href="/training_data")),
         ],
         brand="GIC Team 27",
