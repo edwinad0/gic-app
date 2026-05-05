@@ -204,11 +204,36 @@ def build_report(n, role, person, target_role, skill_gap_html, career_gap_html, 
     profiles = get_all_profiles()
     person_name = next((p[1].title() for p in profiles if p[0] == person), str(person))
 
+    # RADAR CHART
     radar_fig = go.Figure(radar_fig_dict)
     radar_img = fig_to_base64(radar_fig)
 
+    # TASK CLASSIFICATION
+    # Build task classification table
+    tasks = get_tasks_for_person_id(person)
+    task_table = """
+    <table style='width:100%;border-collapse:collapse;font-size:14px;'>
+        <tr style='background:#e9e9e9;'>
+            <th style='border:1px solid #ccc;padding:8px;text-align:left;'>Task</th>
+            <th style='border:1px solid #ccc;padding:8px;text-align:left;'>Classification</th>
+        </tr>
+    """
+
+    for t in tasks:
+        label = classify_task(t)
+        task_table += f"""
+        <tr>
+            <td style='border:1px solid #ccc;padding:8px;'>{t}</td>
+            <td style='border:1px solid #ccc;padding:8px;font-weight:bold;'>{label}</td>
+        </tr>
+        """
+
+    task_table += "</table>"
+
+    # CURRENT ROLE SKILLS
     sg_top10, _, sg_have, _, sg_need = skill_gap_html["props"]["children"]
 
+    # CAREER PROGRESSION 
     if target_role and isinstance(career_gap_html, dict):
         cp_top10, _, cp_have, _, cp_need = career_gap_html["props"]["children"]
     else:
@@ -248,6 +273,7 @@ def build_report(n, role, person, target_role, skill_gap_html, career_gap_html, 
         sg_top10=sg_top10_html,
         sg_have=sg_have_html,
         sg_need=sg_need_html,
+        task_table=task_table,
         career_section=career_section
     )
 
