@@ -1,6 +1,6 @@
 id,Task,Classification
 1,Automatically run nightly regression test suites,Automatable
-2,Generate build deployment scripts,Automatable
+2,Generate build deployment scripts,Augmentable
 3,Monitor application uptime and trigger alerts,Automatable
 4,Perform automated code linting,Automatable
 5,"Execute vulnerability scans on repos
@@ -8,7 +8,7 @@ id,Task,Classification
 6,Patch known software dependencies,Automatable
 7,Auto‑generate API documentation from code,Automatable
 8,Perform synthetic test data generation,Automatable
-9,Schedule server scaling based on load,Automatable
+9,Schedule server scaling based on load,Augmentable
 10,Log error aggregation and categorisation,Automatable
 11,Generate weekly KPI dashboards,Automatable
 12,Refresh business intelligence datasets,Automatable
@@ -46,7 +46,7 @@ id,Task,Classification
 44,Decommission leavers’ system access,Automatable
 45,Apply device compliance policies,Automatable
 46,Run endpoint health checks,Automatable
-47,Deploy software updates,Automatable
+47,Deploy software updates,Augmentable
 48,Monitor licence utilisation,Automatable
 49,Auto‑respond to common IT queries,Automatable
 50,Enforce data retention rules,Automatable
@@ -103,8 +103,8 @@ id,Task,Classification
 101,Designing application architectures,Augmentable
 102,Reviewing pull requests,Augmentable
 103,Optimising algorithms,Augmentable
-104,Debugging complex system issues,Augmentable
-105,Planning technical roadmaps,Augmentable
+104,Debugging complex system issues,Human-Critical
+105,Planning technical roadmaps,Human-Critical
 106,Refactoring legacy systems,Augmentable
 107,Assessing technical debt,Augmentable
 108,Defining coding standards,Augmentable
@@ -192,7 +192,7 @@ id,Task,Classification
 190,Evaluating delivery performance,Augmentable
 191,Drafting bespoke contract clauses,Augmentable
 192,Reviewing contract risk,Augmentable
-193,Negotiation preparation,Augmentable
+193,Negotiation preparation,Human-Critical
 194,Interpreting legal advice,Augmentable
 195,Supporting dispute resolution,Augmentable
 196,Managing IP considerations,Augmentable
