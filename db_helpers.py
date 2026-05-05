@@ -92,6 +92,27 @@ def get_all_profiles():
     conn.close()
     return rows
 
+def get_name_for_person_id(person_id):
+    """
+    Return the person's name (lead field) for a given person ID.
+    """
+    try:
+        person_id = int(person_id)
+    except (TypeError, ValueError):
+        return None
+    
+    conn = get_conn()
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT lead
+        FROM job_profiles
+        WHERE id = ?
+    """, (person_id,))
+
+    row = cur.fetchone()
+    conn.close()
+    return row[0] if row else None
 
 def count_people_in_role(title):
     conn = get_conn()

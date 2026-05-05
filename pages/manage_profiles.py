@@ -3,7 +3,7 @@ from dash import html, dcc, dash_table, callback, Input, Output, State, register
 from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
 
-from db_helpers import get_all_profiles, delete_profile, get_job_profile, update_profile
+from db_helpers import get_name_for_person_id, get_all_profiles, delete_profile, get_job_profile, update_profile
 
 register_page(__name__, path="/manage_profiles")
 
@@ -43,6 +43,7 @@ def layout():
     titles = sorted({r[2] for r in rows})
 
     return dbc.Container([
+
         html.H2("Manage Profiles"),
         html.P("Search, edit, or delete job profiles."),
 
@@ -127,9 +128,11 @@ def layout():
                 dbc.Button("Save", id="mp_save_btn", color="success"),
                 dbc.Button("Cancel", id="mp_cancel_btn", color="secondary"),
             ])
-        ], id="mp_edit_modal", is_open=False), 
+        ], id="mp_edit_modal", is_open=False),
 
+        # ------------------------------------------------------------
         # DELETE CONFIRMATION MODAL
+        # ------------------------------------------------------------
         dbc.Modal([
             dbc.ModalHeader("Confirm Delete"),
             dbc.ModalBody(id="delete_confirm_body"),
@@ -137,7 +140,12 @@ def layout():
                 dbc.Button("Delete", id="confirm_delete_btn", color="danger"),
                 dbc.Button("Cancel", id="cancel_delete_btn", color="secondary"),
             ])
-        ], id="delete_confirm_modal", is_open=False)
+        ], id="delete_confirm_modal", is_open=False),
+
+        # ------------------------------------------------------------
+        # HIDDEN STORE FOR DELETE ID (your requested location)
+        # ------------------------------------------------------------
+        dcc.Store(id="delete_job_id"),
 
     ], fluid=True)
 
@@ -161,7 +169,7 @@ def format_rows(rows):
 
 
 # ------------------------------------------------------------
-# Open the Modal for editing 
+# OPEN EDIT MODAL
 # ------------------------------------------------------------
 @callback(
     Output("mp_edit_modal", "is_open"),
@@ -180,7 +188,6 @@ def open_edit_modal(active_cell, table_data):
     if not active_cell:
         raise PreventUpdate
 
-    # Only handle edit clicks — ignore delete clicks
     if active_cell.get("column_id") != "edit":
         return (dash.no_update,) * 8
 
@@ -200,8 +207,9 @@ def open_edit_modal(active_cell, table_data):
         job_id
     )
 
+
 # ------------------------------------------------------------
-# FILTER BY LEAD AND TITLE 
+# FILTER TABLE
 # ------------------------------------------------------------
 @callback(
     Output("manage_table", "data"),
@@ -212,18 +220,12 @@ def filter_table(lead_query, title_query):
     rows = get_all_profiles()
     formatted = format_rows(rows)
 
-    # Normalize inputs
     lead_query = (lead_query or "").strip().lower()
     title_query = (title_query or "").strip().lower()
 
-    # Apply filters
     filtered = []
     for row in formatted:
-        lead_match = lead_query in row["lead"].lower()
-        title_match = title_query in row["title"].lower()
-
-        # Both filters must match (AND logic)
-        if lead_match and title_match:
+        if lead_query in row["lead"].lower() and title_query in row["title"].lower():
             filtered.append(row)
 
     return filtered
@@ -344,12 +346,13 @@ def save_profile(n, job_id, lead, title, grade, description, tasks, skills):
 
 
 # ------------------------------------------------------------
-# DELETE ROW
+# DELETE — OPEN CONFIRMATION MODAL
 # ------------------------------------------------------------
 @callback(
     Output("delete_confirm_modal", "is_open"),
     Output("delete_confirm_body", "children"),
     Output("mp_edit_modal", "is_open", allow_duplicate=True),
+    Output("delete_job_id", "data"),
     Input("manage_table", "active_cell"),
     State("manage_table", "data"),
     prevent_initial_call=True
@@ -358,23 +361,25 @@ def ask_delete_confirmation(active_cell, table_data):
     if not active_cell:
         raise PreventUpdate
 
-    # Only trigger on delete column
     if active_cell.get("column_id") != "delete":
-        return dash.no_update, dash.no_update, dash.no_update
+        return dash.no_update, dash.no_update, dash.no_update, dash.no_update
 
-    row_index = active_cell["row"]
-    lead = table_data[row_index]["lead"]
-    title = table_data[row_index]["title"]
+    row = table_data[active_cell["row"]]
+    job_id = row["id"]
+    lead = row["lead"]
+    title = row["title"]
 
     return (
         True,
-        dcc.Markdown(
-            f"Are you sure you want to delete profile for **{lead}** — **{title}**?"
-        ),
-        False  # ensure edit modal closes if open
+        dcc.Markdown(f"Are you sure you want to delete profile for **{lead}** — **{title}**?"),
+        False,
+        job_id
     )
 
-# CANCEL DELETE 
+
+# ------------------------------------------------------------
+# CANCEL DELETE
+# ------------------------------------------------------------
 @callback(
     Output("delete_confirm_modal", "is_open", allow_duplicate=True),
     Input("cancel_delete_btn", "n_clicks"),
@@ -383,38 +388,41 @@ def ask_delete_confirmation(active_cell, table_data):
 def cancel_delete(n):
     return False
 
-# CONFIRM DELETE 
+
+# ------------------------------------------------------------
+# CONFIRM DELETE
+# ------------------------------------------------------------
 @callback(
     Output("delete_confirm_modal", "is_open", allow_duplicate=True),
     Output("manage_table", "data", allow_duplicate=True),
     Output("manage_msg", "children", allow_duplicate=True),
     Input("confirm_delete_btn", "n_clicks"),
-    State("delete_confirm_body", "children"),
+    State("delete_job_id", "data"),
     prevent_initial_call=True
 )
-def confirm_delete(n, body_text):
+def confirm_delete(n, job_id):
     if not n:
         raise PreventUpdate
 
-    # Extract job_id from modal text
-    job_id = body_text.split()[-1].replace("?", "")
-
+    job_id = int(job_id)
+    name = get_name_for_person_id(job_id)
     delete_profile(job_id)
     rows = get_all_profiles()
 
     return (
         False,
         format_rows(rows),
-        dbc.Alert(f"Deleted profile {job_id}", color="success")
+        dbc.Alert(f"Deleted profile {job_id} - {name}", color="success")
     )
 
 
-# CLOSE MODAL ON CANCEL BUTTON 
+# ------------------------------------------------------------
+# CLOSE EDIT MODAL
+# ------------------------------------------------------------
 @callback(
     Output("mp_edit_modal", "is_open", allow_duplicate=True),
     Input("mp_cancel_btn", "n_clicks"),
     prevent_initial_call=True
 )
 def close_edit_modal(n):
-    # Any click on Cancel just closes the modal
     return False
