@@ -14,13 +14,13 @@ register_page(__name__, path="/add_job_profile")
 # UI COMPONENTS
 # ------------------------------------------------------------
 
-def task_pill(text, index):
+def task_pill(text):
     return dbc.Badge(
         [
             html.Div(text, style={"whiteSpace": "normal", "display": "inline"}),
             html.Span(
                 " ✕",
-                id={"type": "delete_task_add", "index": index},
+                id={"type": "delete_task_add", "task": text},
                 style={"cursor": "pointer", "marginLeft": "10px", "fontWeight": "bold"}
             )
         ],
@@ -38,13 +38,13 @@ def task_pill(text, index):
     )
 
 
-def skill_pill(text, index):
+def skill_pill(text):
     return dbc.Badge(
         [
             text,
             html.Span(
                 " ✕",
-                id={"type": "delete_skill_add", "index": index},
+                id={"type": "delete_skill_add", "skill": text},
                 style={"cursor": "pointer", "marginLeft": "8px", "fontWeight": "bold"}
             )
         ],
@@ -70,15 +70,15 @@ layout = dbc.Container([
     dbc.Label("Grade"),
     dbc.Input(id="add_grade", placeholder="Grade", className="mb-2"),
 
-    dbc.Label("Description (optional)"),
-    dbc.Textarea(
-        id="add_description",
-        placeholder="Paste a job description here...",
-        style={"height": "120px"},
-        className="mb-2"
-    ),
+    # dbc.Label("Description (optional)"),
+    # dbc.Textarea(
+    #     id="add_description",
+    #     placeholder="Paste a job description here...",
+    #     style={"height": "120px"},
+    #     className="mb-2"
+    # ),
 
-    dbc.Button("Generate Tasks", id="generate_tasks_btn", color="secondary", className="mb-3"),
+    # dbc.Button("Generate Tasks", id="generate_tasks_btn", color="secondary", className="mb-3"),
 
     # ---------------- TASKS ----------------
     html.H5("Tasks"),
@@ -136,7 +136,7 @@ def generate_tasks(n, description):
     Output("add_task_store", "data", allow_duplicate=True),
     Output("add_task_input", "value", allow_duplicate=True),
     Input("add_task_input", "n_submit"),
-    Input({"type": "delete_task_add", "index": ALL}, "n_clicks"),
+    Input({"type": "delete_task_add", "task": ALL}, "n_clicks"),
     State("add_task_input", "value"),
     State("add_task_store", "data"),
     prevent_initial_call=True
@@ -155,9 +155,8 @@ def modify_tasks(add_submit, delete_clicks, new_task, tasks):
 
     if "delete_task_add" in trigger:
         triggered_id = eval(trigger.split(".")[0])
-        index = triggered_id["index"]
-        if 0 <= index < len(tasks):
-            tasks.pop(index)
+        task_to_delete = triggered_id["task"]
+        tasks = [t for t in tasks if t != task_to_delete]
         return tasks, ""
 
     raise PreventUpdate
@@ -169,7 +168,7 @@ def modify_tasks(add_submit, delete_clicks, new_task, tasks):
     Input("add_task_store", "data")
 )
 def show_tasks(tasks):
-    return [task_pill(t, i) for i, t in enumerate(tasks)]
+    return [task_pill(t) for t in tasks]
 
 
 # --- Add/Delete Skills ---
@@ -177,7 +176,7 @@ def show_tasks(tasks):
     Output("add_skill_store", "data", allow_duplicate=True),
     Output("add_skill_input", "value"),
     Input("add_skill_input", "n_submit"),
-    Input({"type": "delete_skill_add", "index": ALL}, "n_clicks"),
+    Input({"type": "delete_skill_add", "skill": ALL}, "n_clicks"),
     State("add_skill_input", "value"),
     State("add_skill_store", "data"),
     prevent_initial_call=True
@@ -196,9 +195,8 @@ def modify_skills(add_submit, delete_clicks, new_skill, skills):
 
     if "delete_skill_add" in trigger:
         triggered_id = eval(trigger.split(".")[0])
-        index = triggered_id["index"]
-        if 0 <= index < len(skills):
-            skills.pop(index)
+        skill_to_delete = triggered_id["skill"]
+        skills = [s for s in skills if s != skill_to_delete]
         return skills, ""
 
     raise PreventUpdate
@@ -210,7 +208,7 @@ def modify_skills(add_submit, delete_clicks, new_skill, skills):
     Input("add_skill_store", "data")
 )
 def show_skills(skills):
-    return [skill_pill(s, i) for i, s in enumerate(skills)]
+    return [skill_pill(s) for s in skills]
 
 
 # --- Save Profile ---

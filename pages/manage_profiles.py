@@ -11,22 +11,22 @@ register_page(__name__, path="/manage_profiles")
 # ------------------------------------------------------------
 # Helper: Task & Skill Pills
 # ------------------------------------------------------------
-def mp_task_pill(text, index):
+def mp_task_pill(text):
     return dbc.Badge(
         [
             text,
-            html.Span(" ✕", id={"type": "mp_delete_task", "index": index},
+            html.Span(" ✕", id={"type": "mp_delete_task", "task": text},
                       style={"cursor": "pointer", "marginLeft": "8px"})
         ],
         color="secondary", pill=True, className="me-1 mb-2"
     )
 
 
-def mp_skill_pill(text, index):
+def mp_skill_pill(text):
     return dbc.Badge(
         [
             text,
-            html.Span(" ✕", id={"type": "mp_delete_skill", "index": index},
+            html.Span(" ✕", id={"type": "mp_delete_skill", "skill": text},
                       style={"cursor": "pointer", "marginLeft": "8px"})
         ],
         color="info", pill=True, className="me-1 mb-2"
@@ -236,7 +236,7 @@ def filter_table(lead_query, title_query):
     Output("mp_task_store", "data", allow_duplicate=True),
     Output("mp_task_input", "value"),
     Input("mp_task_input", "n_submit"),
-    Input({"type": "mp_delete_task", "index": ALL}, "n_clicks"),
+    Input({"type": "mp_delete_task", "task": ALL}, "n_clicks"),
     State("mp_task_input", "value"),
     State("mp_task_store", "data"),
     prevent_initial_call=True
@@ -254,8 +254,9 @@ def modify_tasks(add_submit, delete_clicks, new_task, tasks):
         return tasks, ""
 
     if "mp_delete_task" in trigger:
-        idx = eval(trigger.split(".")[0])["index"]
-        tasks.pop(idx)
+        triggered_id = eval(trigger.split(".")[0])
+        task_to_delete = triggered_id["task"]
+        tasks = [t for t in tasks if t != task_to_delete]
         return tasks, ""
 
     raise PreventUpdate
@@ -268,7 +269,7 @@ def modify_tasks(add_submit, delete_clicks, new_task, tasks):
 def show_tasks(tasks):
     if not tasks:
         return []
-    return [mp_task_pill(t, i) for i, t in enumerate(tasks)]
+    return [mp_task_pill(t) for t in tasks]
 
 
 # ------------------------------------------------------------
@@ -278,7 +279,7 @@ def show_tasks(tasks):
     Output("mp_skill_store", "data", allow_duplicate=True),
     Output("mp_skill_input", "value"),
     Input("mp_skill_input", "n_submit"),
-    Input({"type": "mp_delete_skill", "index": ALL}, "n_clicks"),
+    Input({"type": "mp_delete_skill", "skill": ALL}, "n_clicks"),
     State("mp_skill_input", "value"),
     State("mp_skill_store", "data"),
     prevent_initial_call=True
@@ -296,8 +297,9 @@ def modify_skills(add_submit, delete_clicks, new_skill, skills):
         return skills, ""
 
     if "mp_delete_skill" in trigger:
-        idx = eval(trigger.split(".")[0])["index"]
-        skills.pop(idx)
+        triggered_id = eval(trigger.split(".")[0])
+        skill_to_delete = triggered_id["skill"]
+        skills = [s for s in skills if s != skill_to_delete]
         return skills, ""
 
     raise PreventUpdate
@@ -310,7 +312,7 @@ def modify_skills(add_submit, delete_clicks, new_skill, skills):
 def show_skills(skills):
     if not skills:
         return []
-    return [mp_skill_pill(s, i) for i, s in enumerate(skills)]
+    return [mp_skill_pill(s) for s in skills]
 
 
 # ------------------------------------------------------------
