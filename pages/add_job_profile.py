@@ -70,15 +70,15 @@ layout = dbc.Container([
     dbc.Label("Grade"),
     dbc.Input(id="add_grade", placeholder="Grade", className="mb-2"),
 
-    # dbc.Label("Description (optional)"),
-    # dbc.Textarea(
-    #     id="add_description",
-    #     placeholder="Paste a job description here...",
-    #     style={"height": "120px"},
-    #     className="mb-2"
-    # ),
+    dbc.Label("Description (optional)"),
+    dbc.Textarea(
+        id="add_description",
+        placeholder="Paste a job description here...",
+        style={"height": "120px"},
+        className="mb-2"
+    ),
 
-    # dbc.Button("Generate Tasks", id="generate_tasks_btn", color="secondary", className="mb-3"),
+    dbc.Button("Generate Tasks", id="generate_tasks_btn", color="secondary", className="mb-3"),
 
     # ---------------- TASKS ----------------
     html.H5("Tasks"),
