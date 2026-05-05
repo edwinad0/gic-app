@@ -12,14 +12,21 @@ TRAINING_CSV = "models/training_data.csv"
 
 def train_model():
     df = pd.read_csv(TRAINING_CSV)
+    df = df.sample(frac=1, random_state=42)  # shuffle
 
     texts = df["Task"].tolist()
     labels = df["Classification"].tolist()
 
-    vectorizer = TfidfVectorizer(stop_words="english")
+    vectorizer = TfidfVectorizer(
+        stop_words="english",
+        ngram_range=(1, 2)  # bigrams improve accuracy
+    )
     X = vectorizer.fit_transform(texts)
 
-    clf = LogisticRegression(max_iter=200)
+    clf = LogisticRegression(
+        max_iter=1000,
+        class_weight="balanced"
+    )
     clf.fit(X, labels)
 
     with open(MODEL_PATH, "wb") as f:

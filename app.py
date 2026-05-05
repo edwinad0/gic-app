@@ -39,5 +39,25 @@ def redirect_home(path):
         return "/add_job_profile"
     return path
 
+
+# ------------------------------------------------------------
+# IFRAME‑BASED PRINT CALLBACK (WORKS WITHOUT ANY JS FILES)
+# ------------------------------------------------------------
+app.clientside_callback(
+    """
+    function(html) {
+        if (!html) return "";
+        const frame = document.getElementById("pdf_frame");
+        frame.srcdoc = html;
+        frame.onload = function() {
+            frame.contentWindow.print();
+        };
+        return "";
+    }
+    """,
+    Output("pdf_trigger", "children"),
+    Input("pdf_report_container", "children")
+)
+
 if __name__ == "__main__":
     app.run(debug=True)
