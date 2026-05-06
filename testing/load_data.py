@@ -1,4 +1,4 @@
-from db_helpers import insert_profile, init_db
+from src import insert_profile, init_db
 
 # Simple task extractor for test data
 def extract_tasks_from_description(desc):
