@@ -14,64 +14,43 @@ app.config.suppress_callback_exceptions = True
 
 app.layout = html.Div([
     dcc.Location(id="url"),
+
+    # Store the selected role (user / maintainer)
+    dcc.Store(id="role_store", storage_type="session"),
+
     # -------------------------
-    # RESIZABLE SIDEBAR
+    # SIDEBAR
     # -------------------------
     html.Div(
         id="sidebar",
         className="sidebar",
         style={"paddingTop": "20px"},
         children=[
-            html.Div([
-                dbc.Nav(
-                    vertical=True,
-                    pills=True,
-                    children=[
-                        dbc.NavLink([
-                            html.I(className="bi bi-house me-2"),
-                            html.Span("Home", className="nav-text")
-                        ], href="/home", active="exact"),
 
-                        dbc.NavLink([
-                            html.I(className="bi bi-plus-circle me-2"),
-                            html.Span("Add Job Profile", className="nav-text")
-                        ], href="/add_job_profile", active="exact"),
-
-                        dbc.NavLink([
-                            html.I(className="bi bi-list-check me-2"),
-                            html.Span("Manage Profiles", className="nav-text")
-                        ], href="/manage_profiles", active="exact"),
-
-                        dbc.NavLink([
-                            html.I(className="bi bi-graph-up me-2"),
-                            html.Span("Role Insights", className="nav-text")
-                        ], href="/role_analysis", active="exact"),
-
-                        dbc.NavLink([
-                            html.I(className="bi bi-bullseye me-2"),
-                            html.Span("Skill Overview", className="nav-text")
-                        ], href="/skills_map", active="exact"),
-
-                        dbc.NavLink([
-                            html.I(className="bi bi-question-circle me-2"),
-                            html.Span("Help Centre", className="nav-text")
-                        ], href="/questions", active="exact"),
-
-                        dbc.NavLink([
-                            html.I(className="bi bi-database me-2"),
-                            html.Span("Classifier Model Training Data", className="nav-text")
-                        ], href="/training_data", active="exact"),
-
-                        dbc.NavLink([
-                            html.I(className="bi bi-database me-2"),
-                            html.Span("Extractor Model Training Data", className="nav-text")
-                        ], href="/extractor_training_data", active="exact"),
-                    ],
-                )
-            ], className="sidebar-content"),
+            # Dynamic nav links
+            html.Div(id="sidebar_links", className="sidebar-content"),
 
             # draggable handle
-            html.Div(id="sidebar-handle", className="sidebar-handle")
+            html.Div(id="sidebar-handle", className="sidebar-handle"),
+
+            # Role selector pinned to bottom
+            html.Div(
+                [
+                    html.Hr(),
+                    html.Label("Role", style={"fontWeight": "bold"}),
+                    dcc.Dropdown(
+                        id="user_role",
+                        options=[
+                            {"label": "Maintainer", "value": "maintainer"},
+                            {"label": "User", "value": "user"},
+                        ],
+                        value="user",
+                        clearable=False,
+                        style={"marginBottom": "20px"}
+                    )
+                ],
+                style={"position": "absolute", "bottom": "20px", "width": "90%"}
+            )
         ]
     ),
 
@@ -92,7 +71,81 @@ app.layout = html.Div([
 ])
 
 
+# -------------------------
+# SIDEBAR CALLBACK
+# -------------------------
+@callback(
+    Output("sidebar_links", "children"),
+    Input("role_store", "data")
+)
+def update_sidebar(role):
+
+    # Always visible
+    common_links = [
+        dbc.NavLink([
+            html.I(className="bi bi-house me-2"),
+            html.Span("Home", className="nav-text")
+        ], href="/home", active="exact"),
+
+        dbc.NavLink([
+            html.I(className="bi bi-plus-circle me-2"),
+            html.Span("Add Job Profile", className="nav-text")
+        ], href="/add_job_profile", active="exact"),
+
+        dbc.NavLink([
+            html.I(className="bi bi-list-check me-2"),
+            html.Span("Manage Profiles", className="nav-text")
+        ], href="/manage_profiles", active="exact"),
+
+        dbc.NavLink([
+            html.I(className="bi bi-graph-up me-2"),
+            html.Span("Role Insights", className="nav-text")
+        ], href="/role_analysis", active="exact"),
+
+        dbc.NavLink([
+            html.I(className="bi bi-bullseye me-2"),
+            html.Span("Skill Overview", className="nav-text")
+        ], href="/skills_map", active="exact"),
+
+        dbc.NavLink([
+            html.I(className="bi bi-question-circle me-2"),
+            html.Span("Help Centre", className="nav-text")
+        ], href="/questions", active="exact"),
+    ]
+
+    # Maintainer-only links
+    maintainer_links = [
+        dbc.NavLink([
+            html.I(className="bi bi-database me-2"),
+            html.Span("Classifier Model Training Data", className="nav-text")
+        ], href="/training_data", active="exact"),
+
+        dbc.NavLink([
+            html.I(className="bi bi-database me-2"),
+            html.Span("Extractor Model Training Data", className="nav-text")
+        ], href="/extractor_training_data", active="exact"),
+    ]
+
+    if role == "maintainer":
+        return dbc.Nav(common_links + maintainer_links, vertical=True, pills=True)
+
+    return dbc.Nav(common_links, vertical=True, pills=True)
+
+
+# -------------------------
+# SYNC DROPDOWN → STORE
+# -------------------------
+@callback(
+    Output("role_store", "data"),
+    Input("user_role", "value")
+)
+def set_role(role):
+    return role
+
+
+# -------------------------
 # Redirect "/" → "/home"
+# -------------------------
 @callback(
     Output("url", "pathname"),
     Input("url", "pathname")
@@ -103,7 +156,9 @@ def redirect_home(path):
     return path
 
 
+# -------------------------
 # PDF print callback
+# -------------------------
 app.clientside_callback(
     """
     function(html) {
@@ -119,6 +174,7 @@ app.clientside_callback(
     Output("pdf_trigger", "children"),
     Input("pdf_report_container", "children")
 )
+
 
 if __name__ == "__main__":
     app.run(debug=True)
