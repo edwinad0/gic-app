@@ -4,11 +4,11 @@ from dash.dependencies import ALL
 from dash.exceptions import PreventUpdate
 
 from src import insert_profile
-from models.task_extractor import extract_tasks  
+from models.task_extractor import TaskExtractor
+extractor = TaskExtractor()
 
 
 register_page(__name__, path="/add_job_profile")
-
 
 # ------------------------------------------------------------
 # UI COMPONENTS
@@ -127,7 +127,7 @@ def generate_tasks(n, description):
     if not description:
         return [], ""
 
-    tasks = extract_tasks(description)
+    tasks = extractor.extract(description)
     return tasks, ""
 
 

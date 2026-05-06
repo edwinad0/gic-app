@@ -59,8 +59,13 @@ app.layout = html.Div([
 
                         dbc.NavLink([
                             html.I(className="bi bi-database me-2"),
-                            html.Span("Model Training Data", className="nav-text")
+                            html.Span("Classifier Model Training Data", className="nav-text")
                         ], href="/training_data", active="exact"),
+
+                        dbc.NavLink([
+                            html.I(className="bi bi-database me-2"),
+                            html.Span("Extractor Model Training Data", className="nav-text")
+                        ], href="/extractor_training_data", active="exact"),
                     ],
                 )
             ], className="sidebar-content"),

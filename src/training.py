@@ -3,7 +3,6 @@ import os
 
 CSV_PATH = "models/training_data.csv"
 
-
 def get_training_data():
     if not os.path.exists(CSV_PATH):
         return []
@@ -16,7 +15,6 @@ def get_training_data():
         df.to_csv(CSV_PATH, index=False)
 
     return df.to_dict("records")
-
 
 def insert_training_sample(task, classification):
     df = pd.read_csv(CSV_PATH)

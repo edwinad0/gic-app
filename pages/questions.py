@@ -37,8 +37,9 @@ accordion = dbc.Accordion(
 
 layout = dbc.Container(
     [
-        html.H2("FAQs", className="mt-4 mb-2"),
-        html.P("Frequently Asked Questions about the app.", className="text-muted"),
+        html.H2("Help Centre", className="mt-4 mb-2"),
+
+        html.Br(),
 
         dbc.Card(
             dbc.CardBody([
