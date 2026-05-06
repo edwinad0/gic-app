@@ -14,6 +14,7 @@ app.layout = html.Div([
     dcc.Location(id="url"),
     dbc.NavbarSimple(
         children=[
+            dbc.NavItem(dbc.NavLink("Home", href="/home")),
             dbc.NavItem(dbc.NavLink("Add Job Profile", href="/add_job_profile")),
             dbc.NavItem(dbc.NavLink("Manage Profiles", href="/manage_profiles")),
             dbc.NavItem(dbc.NavLink("Role Analysis", href="/role_analysis")),
@@ -36,7 +37,7 @@ app.layout = html.Div([
 )
 def redirect_home(path):
     if path in ("/", None):
-        return "/add_job_profile"
+        return "/home"
     return path
 
 
