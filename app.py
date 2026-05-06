@@ -37,7 +37,7 @@ app.layout = html.Div([
             html.Div(
                 [
                     html.Hr(),
-                    html.Label("Role", style={"fontWeight": "bold"}),
+                    html.B("Role", style={"fontWeight": "bold"}),
                     dcc.Dropdown(
                         id="user_role",
                         options=[
@@ -115,6 +115,11 @@ def update_sidebar(role):
 
     # Maintainer-only links
     maintainer_links = [
+        dbc.NavLink([
+            html.I(className="bi bi-book me-2"),
+            html.Span("Maintainer Guide", className="nav-text")
+        ], href="/maintainer_guide", active="exact"),
+
         dbc.NavLink([
             html.I(className="bi bi-database me-2"),
             html.Span("Classifier Model Training Data", className="nav-text")
