@@ -1,0 +1,67 @@
+/* ---------------------------
+   RESIZABLE SIDEBAR
+---------------------------- */
+.sidebar {
+    width: 240px;
+    min-width: 60px;
+    max-width: 400px;
+    height: 100vh;
+    background: #f4f6f9; /* softer, modern neutral */
+    border-right: 1px solid #e1e4e8;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.05); /* subtle depth */
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+/* Content inside sidebar */
+.sidebar-content {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+/* ---------------------------
+   DRAG HANDLE
+---------------------------- */
+.sidebar-handle {
+    width: 6px;
+    cursor: ew-resize;
+    background: #d0d7de; /* soft grey */
+    transition: background 0.2s;
+}
+
+.sidebar-handle:hover {
+    background: #0d6efd; /* Bootstrap primary blue */
+}
+
+/* ---------------------------
+   MAIN CONTENT
+---------------------------- */
+.main-content {
+    margin-left: 240px;
+    padding: 40px 50px;
+    transition: margin-left 0.1s linear;
+    background: #ffffff;
+}
+
+/* Page title */
+.page-title {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #1f2937; /* deep slate */
+}
+
+/* ---------------------------
+   ICON MODE WHEN SIDEBAR SMALL
+---------------------------- */
+.sidebar.small .nav-text {
+    display: none;
+}
+
+.sidebar.small h4.nav-text {
+    display: none;
+}

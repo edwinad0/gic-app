@@ -4,33 +4,90 @@ import dash_bootstrap_components as dbc
 app = Dash(
     __name__,
     use_pages=True,
-    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    external_stylesheets=[
+        dbc.themes.BOOTSTRAP,
+        "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    ],
 )
 
 app.config.suppress_callback_exceptions = True
 
-# Layout with navbar
 app.layout = html.Div([
     dcc.Location(id="url"),
-    dbc.NavbarSimple(
+    # -------------------------
+    # RESIZABLE SIDEBAR
+    # -------------------------
+    html.Div(
+        id="sidebar",
+        className="sidebar",
+        style={"paddingTop": "20px"},
         children=[
-            dbc.NavItem(dbc.NavLink("Home", href="/home")),
-            dbc.NavItem(dbc.NavLink("Add Job Profile", href="/add_job_profile")),
-            dbc.NavItem(dbc.NavLink("Manage Profiles", href="/manage_profiles")),
-            dbc.NavItem(dbc.NavLink("Role Analysis", href="/role_analysis")),
-            dbc.NavItem(dbc.NavLink("Skills Map", href="/skills_map")),
-            dbc.NavItem(dbc.NavLink("FAQs", href="/questions")),
-            dbc.NavItem(dbc.NavLink("Training Data", href="/training_data")),
-        ],
-        brand="GIC Team 27",
-        color="primary",
-        dark=True,
-        className="mb-4"
+            html.Div([
+                dbc.Nav(
+                    vertical=True,
+                    pills=True,
+                    children=[
+                        dbc.NavLink([
+                            html.I(className="bi bi-house me-2"),
+                            html.Span("Home", className="nav-text")
+                        ], href="/home", active="exact"),
+
+                        dbc.NavLink([
+                            html.I(className="bi bi-plus-circle me-2"),
+                            html.Span("Add Job Profile", className="nav-text")
+                        ], href="/add_job_profile", active="exact"),
+
+                        dbc.NavLink([
+                            html.I(className="bi bi-list-check me-2"),
+                            html.Span("Manage Profiles", className="nav-text")
+                        ], href="/manage_profiles", active="exact"),
+
+                        dbc.NavLink([
+                            html.I(className="bi bi-graph-up me-2"),
+                            html.Span("Role Insights", className="nav-text")
+                        ], href="/role_analysis", active="exact"),
+
+                        dbc.NavLink([
+                            html.I(className="bi bi-bullseye me-2"),
+                            html.Span("Skill Overview", className="nav-text")
+                        ], href="/skills_map", active="exact"),
+
+                        dbc.NavLink([
+                            html.I(className="bi bi-question-circle me-2"),
+                            html.Span("Help Centre", className="nav-text")
+                        ], href="/questions", active="exact"),
+
+                        dbc.NavLink([
+                            html.I(className="bi bi-database me-2"),
+                            html.Span("Model Training Data", className="nav-text")
+                        ], href="/training_data", active="exact"),
+                    ],
+                )
+            ], className="sidebar-content"),
+
+            # draggable handle
+            html.Div(id="sidebar-handle", className="sidebar-handle")
+        ]
     ),
-    page_container
+
+    # -------------------------
+    # MAIN CONTENT
+    # -------------------------
+    html.Div(
+        id="main-content",
+        className="main-content",
+        children=[
+            html.H1("Skills & Task Intelligence Platform", className="page-title"),
+            html.Hr(),
+            page_container,
+            html.Div(id="pdf_trigger"),
+            html.Iframe(id="pdf_frame", style={"display": "none"})
+        ]
+    ),
 ])
 
-# Redirect "/" → "/add_job_profile"
+
+# Redirect "/" → "/home"
 @callback(
     Output("url", "pathname"),
     Input("url", "pathname")
@@ -41,9 +98,7 @@ def redirect_home(path):
     return path
 
 
-# ------------------------------------------------------------
-# IFRAME‑BASED PRINT CALLBACK (WORKS WITHOUT ANY JS FILES)
-# ------------------------------------------------------------
+# PDF print callback
 app.clientside_callback(
     """
     function(html) {

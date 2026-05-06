@@ -6,7 +6,7 @@ register_page(__name__, path="/home")
 def layout():
     return dbc.Container(
         [
-            html.H1("Welcome to the Skills & Task Intelligence Platform", className="mt-4"),
+            html.H2("Welcome to the Skills & Task Intelligence Platform", className="mt-4"),
 
             html.P(
                 "This platform was created to help our teams understand their work more clearly, "
@@ -20,7 +20,7 @@ def layout():
 
             html.Hr(),
 
-            html.H2("Why We Built This"),
+            html.H3("Why We Built This"),
             html.P([
                 "Across the organisation, people spend a significant amount of time on repetitive, "
                 "manual, or low‑value tasks. These tasks are important, but they often ",
@@ -39,34 +39,17 @@ def layout():
 
             html.Hr(),
 
-            html.H2("How to Use the App"),
-
-            html.H4("Explore Your Role"),
-            html.P([
-                "Go to the Role Analysis Page and select your job role. You’ll see the top skills for "
-                "your role.",
-                html.Br(),
-                "Here you can also see how tasks for your role are classified by our model."
-            ]),
-
-            html.H4("Generate a Skills Map"),
-            html.P([
-                "From the Skills Map Page choose your name from the list to view your ",
-                html.B("personalised "),
-                "task radar, skill gap analysis, and task classification summary."
-            ]),
-
-            html.H4("Explore Career Progression"),
-            html.P(
-                "Choose a target role to see which skills you already have and which ones you may "
-                "want to develop for future opportunities."
-            ),
-
-            html.H4("Generate Your PDF Report"),
-            html.P(
-                "Once your role and name are selected, you can generate a full PDF report including "
-                "your task distribution, skill gaps, and career progression insights."
-            ),
+            html.Img(
+                src="/assets/user-guide.png",
+                style={
+                    "width": "100%",
+                    "maxWidth": "1600px",
+                    "display": "block",
+                    "margin": "30px auto",
+                    "borderRadius": "8px",
+                    "boxShadow": "0 4px 12px rgba(0,0,0,0.25)"
+                }
+            )
         ],
         fluid=True,
         className="p-4"
