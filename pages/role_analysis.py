@@ -1,7 +1,7 @@
 from dash import html, dcc, callback, Input, Output, register_page
 import dash_bootstrap_components as dbc
 
-from db_helpers import (
+from src import (
     get_all_profiles,
     get_tasks_for_role,
     get_weighted_skills_for_title,

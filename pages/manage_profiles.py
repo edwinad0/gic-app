@@ -3,7 +3,7 @@ from dash import html, dcc, dash_table, callback, Input, Output, State, register
 from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
 
-from db_helpers import get_name_for_person_id, get_all_profiles, delete_profile, get_job_profile, update_profile
+from src import get_name_for_person_id, get_all_profiles, delete_profile, get_job_profile, update_profile
 
 register_page(__name__, path="/manage_profiles")
 

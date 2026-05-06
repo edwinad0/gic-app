@@ -3,7 +3,7 @@ from dash import html, dcc, dash_table, callback, Input, Output, State, register
 import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
 
-from training_data_helpers import (
+from src import (
     get_training_data,
     insert_training_sample,
     update_training_sample,

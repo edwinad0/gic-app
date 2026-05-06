@@ -3,7 +3,7 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import ALL
 from dash.exceptions import PreventUpdate
 
-from db_helpers import insert_profile
+from src import insert_profile
 from models.task_extractor import extract_tasks  
 
 

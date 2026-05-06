@@ -7,7 +7,7 @@ from io import BytesIO
 from pathlib import Path
 import plotly.graph_objects as go
 
-from db_helpers import (
+from src import (
     get_all_profiles,
     get_skills_for_person_id,
     get_weighted_skills_for_title,
