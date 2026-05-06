@@ -96,7 +96,10 @@ def update_sidebar(role):
             html.I(className="bi bi-list-check me-2"),
             html.Span("Manage Profiles", className="nav-text")
         ], href="/manage_profiles", active="exact"),
+    ]
 
+    # User-only links 
+    user_links = [
         dbc.NavLink([
             html.I(className="bi bi-graph-up me-2"),
             html.Span("Role Insights", className="nav-text")
@@ -133,6 +136,9 @@ def update_sidebar(role):
 
     if role == "maintainer":
         return dbc.Nav(common_links + maintainer_links, vertical=True, pills=True)
+    
+    if role == "user":
+        return dbc.Nav(common_links + user_links, vertical=True, pills=True)
 
     return dbc.Nav(common_links, vertical=True, pills=True)
 
