@@ -9,7 +9,9 @@ from src import (
     update_training_sample,
     delete_training_sample,
 )
-from models.classifier import train_model
+
+from models.classifier import TaskClassifier
+classifier = TaskClassifier()
 
 register_page(__name__, path="/training_data")
 
@@ -145,7 +147,7 @@ def filter_table(selected_classes):
 )
 def retrain_model_callback(n):
     try:
-        train_model()
+        classifier.train()
         return dbc.Alert("Model retrained successfully.", color="success")
     except Exception as e:
         return dbc.Alert(f"Error retraining model: {e}", color="danger")
@@ -166,7 +168,7 @@ def add_sample(n, task, label):
 
     insert_training_sample(task, label)
     rows = get_training_data()
-    train_model()
+    classifier.train()
 
     return dbc.Alert("Sample added.", color="success"), format_rows(rows)
 
@@ -204,7 +206,7 @@ def save_edit(n, sample_id, task, label):
     update_training_sample(sample_id, task, label)
     rows = get_training_data()
 
-    train_model()
+    classifier.train()
     return False, format_rows(rows)
 
 
@@ -224,5 +226,5 @@ def delete_row(active_cell, table_data):
     delete_training_sample(row["id"])
 
     rows = get_training_data()
-    train_model()
+    classifier.train()
     return format_rows(rows), dbc.Alert("Sample deleted.", color="info")

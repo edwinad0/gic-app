@@ -30,12 +30,6 @@ def layout():
                 "This tool helps us analyse the tasks within each role, understand which ones could "
                 "be automated or supported, and highlight the skills that matter for the future."
             ),
-            dbc.Alert(
-                "This platform is NOT designed to replace jobs. Its purpose is to support people, "
-                "reduce unnecessary workload, and create more time for meaningful, high‑impact work.",
-                color="info",
-                className="mt-3"
-            ),
 
             html.Hr(),
 

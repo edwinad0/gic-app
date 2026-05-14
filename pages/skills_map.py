@@ -15,7 +15,8 @@ from src import (
     get_tasks_for_person_id,
 )
 
-from models.classifier import classify_task
+from models.classifier import TaskClassifier
+classifier = TaskClassifier()
 
 register_page(__name__, path="/skills_map")
 
@@ -31,7 +32,7 @@ CAREER_TEMPLATE = BASE / "career_section.html"
 def compute_task_distribution(tasks):
     counts = {"Automatable": 0, "Augmentable": 0, "Human-Critical": 0}
     for t in tasks:
-        label = classify_task(t)
+        label = classifier.predict(t)
         counts[label] += 1
     total = sum(counts.values()) or 1
     return {

@@ -7,7 +7,9 @@ from src import (
     get_weighted_skills_for_title,
     count_people_in_role
 )
-from models.classifier import classify_task
+
+from models.classifier import TaskClassifier
+classifier = TaskClassifier()
 
 
 register_page(__name__, path="/role_analysis")
@@ -84,7 +86,7 @@ def show_skills(title):
     if not tasks:
         task_card = dbc.Alert("No tasks found for this role.", color="warning")
     else:
-        classified = [(task, classify_task(task)) for task in tasks]
+        classified = [(task, classifier.predict(task)) for task in tasks]
 
         task_rows = [
             html.Tr([html.Td(task), html.Td(label)])
