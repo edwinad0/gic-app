@@ -3,7 +3,7 @@ id,Task,Classification
 2,Generate build deployment scripts,Augmentable
 3,Monitor application uptime and trigger alerts,Automatable
 4,Perform automated code linting,Automatable
-5,"Execute vulnerability scans on repos",Automatable
+5,Execute vulnerability scans on repos,Automatable
 6,Patch known software dependencies,Automatable
 7,Auto‑generate API documentation from code,Automatable
 8,Perform synthetic test data generation,Automatable
