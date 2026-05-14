@@ -6,7 +6,7 @@ app = Dash(
     use_pages=True,
     external_stylesheets=[
         dbc.themes.BOOTSTRAP,
-        "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        "https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
     ],
 )
 
