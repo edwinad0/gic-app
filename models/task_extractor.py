@@ -63,6 +63,7 @@ class TaskExtractor:
 
         # Load evaluation dataset
         data = pd.read_csv(EVAL_CSV)
+        data = data.sample(frac=1, random_state=42)
         sentences = data["sentence"].tolist()
         labels = data["is_task"].tolist()
 

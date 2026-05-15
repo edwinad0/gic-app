@@ -15,6 +15,18 @@ classifier = TaskClassifier()
 register_page(__name__, path="/role_analysis")
 
 
+def confidence_badge(conf):
+    """
+    Colour code confidence Scores
+    """
+    color = (
+        "success" if conf >= 0.80 else
+        "warning" if conf >= 0.60 else
+        "danger"
+    )
+    return dbc.Badge(f"{conf:.0%}", color=color, className="ms-2")
+
+
 # ------------------------------------------------------------
 # PAGE LAYOUT
 # ------------------------------------------------------------
@@ -25,7 +37,7 @@ def layout():
     options = sorted({p[2].title() for p in profiles})
 
     return dbc.Container([
-        html.H2("Role Analysis"),
+        html.H2("Role Insights"),
         html.P("Select a job title to view top skills and task automation classification."),
 
         dcc.Dropdown(
@@ -86,18 +98,26 @@ def show_skills(title):
     if not tasks:
         task_card = dbc.Alert("No tasks found for this role.", color="warning")
     else:
-        classified = [(task, classifier.predict(task)) for task in tasks]
+        classified = []
+        for task in tasks:
+            result = classifier.predict_with_confidence(task)
+            classified.append((task, result["label"], result["confidence"]))
 
         task_rows = [
-            html.Tr([html.Td(task), html.Td(label)])
-            for task, label in classified
+            html.Tr([
+                html.Td(task),
+                html.Td(label),
+                html.Td(confidence_badge(confidence))
+            ])
+            for task, label, confidence in classified
         ]
 
         task_table = dbc.Table(
             [
                 html.Thead(html.Tr([
                     html.Th("Task"),
-                    html.Th("Classification")
+                    html.Th("Classification"),
+                    html.Th("Confidence Score (%)")
                 ])),
                 html.Tbody(task_rows)
             ],
@@ -116,7 +136,7 @@ def show_skills(title):
     # -----------------------------
     # TASK CLASSIFICATION PERCENTAGES
     # -----------------------------
-    labels = [label for _, label in classified]
+    labels = [label for _, label, _ in classified]
 
     total = len(labels)
     auto = labels.count("Automatable")

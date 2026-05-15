@@ -1,0 +1,66 @@
+Task,Classification
+Auto-generate monthly compliance summaries,Automatable
+Trigger automated data refresh pipelines,Automatable
+Categorise inbound support emails,Automatable
+Run scheduled data reconciliation jobs,Automatable
+Auto-assign workflow approval steps,Automatable
+Generate templated audit notifications,Automatable
+Perform automated metadata validation,Automatable
+Trigger nightly data anonymisation routines,Automatable
+Auto-compile weekly utilisation metrics,Automatable
+Run scheduled endpoint diagnostics,Automatable
+Generate automated procurement reminders,Automatable
+Auto-tag CRM activity logs,Automatable
+Perform routine data archival,Automatable
+Auto-calculate standard KPI ratios,Automatable
+Trigger automated invoice follow-ups,Automatable
+Auto-format operational reports,Automatable
+Run scheduled ETL health checks,Automatable
+Auto-populate standard onboarding fields,Automatable
+Generate automated supplier updates,Automatable
+Auto-summarise customer feedback,Automatable
+Trigger automated backup verification,Automatable
+Auto-clean duplicate CRM entries,Automatable
+Generate automated delivery confirmations,Automatable
+Auto-validate form submissions,Automatable
+Run scheduled policy compliance scans,Automatable
+Analyse customer churn indicators,Augmentable
+Evaluate alternative pricing scenarios,Augmentable
+Interpret operational variance drivers,Augmentable
+Support strategic workforce planning,Augmentable
+Assess supplier performance trends,Augmentable
+Interpret customer sentiment patterns,Augmentable
+Support commercial bid evaluations,Augmentable
+Analyse emerging regulatory themes,Augmentable
+Evaluate product portfolio performance,Augmentable
+Support scenario-based forecasting,Augmentable
+Interpret competitive positioning,Augmentable
+Assess operational bottlenecks,Augmentable
+Support strategic roadmap refinement,Augmentable
+Evaluate financial exposure scenarios,Augmentable
+Interpret multi-year demand patterns,Augmentable
+Lead crisis-driven decision making,Human-Critical
+Resolve high-stakes commercial disputes,Human-Critical
+Make executive-level ethical judgments,Human-Critical
+Handle sensitive organisational conflicts,Human-Critical
+Approve major strategic restructures,Human-Critical
+Lead high-impact regulatory negotiations,Human-Critical
+Decide on critical investment trade-offs,Human-Critical
+Manage reputationally sensitive incidents,Human-Critical
+Lead enterprise-wide cultural shifts,Human-Critical
+Make irreversible governance decisions,Human-Critical
+Review data quality issues and propose automated fixes,Augmentable
+Prepare initial risk indicators for automated monitoring,Augmentable
+Draft preliminary pricing adjustments for system application,Augmentable
+Identify workflow delays and suggest automation triggers,Augmentable
+Analyse customer feedback and flag items for auto‑response,Augmentable
+Assess potential impacts of regulatory changes,Augmentable
+Review sensitive performance concerns before escalation,Augmentable
+Evaluate competing priorities across business units,Augmentable
+Interpret early warning signs of operational instability,Augmentable
+Prepare recommendations for handling partner disputes,Augmentable
+Flag high‑risk transactions for manual review,Augmentable
+Identify anomalies that may indicate misconduct,Augmentable
+Prioritise urgent customer escalations for leadership review,Augmentable
+Highlight potential compliance breaches for investigation,Augmentable
+Detect sentiment shifts that may require executive action,Augmentable
