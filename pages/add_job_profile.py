@@ -4,9 +4,6 @@ from dash.dependencies import ALL
 from dash.exceptions import PreventUpdate
 
 from src import insert_profile
-from models.task_extractor import TaskExtractor
-extractor = TaskExtractor()
-
 
 register_page(__name__, path="/add_job_profile")
 
@@ -78,8 +75,6 @@ layout = dbc.Container([
         className="mb-2"
     ),
 
-    dbc.Button("Generate Tasks", id="generate_tasks_btn", color="secondary", className="mb-3"),
-
     # ---------------- TASKS ----------------
     html.H5("Tasks"),
     dcc.Store(id="add_task_store", data=[]),
@@ -114,23 +109,6 @@ layout = dbc.Container([
 # ------------------------------------------------------------
 # CALLBACKS
 # ------------------------------------------------------------
-
-# --- AI Task Extraction ---
-@callback(
-    Output("add_task_store", "data", allow_duplicate=True),
-    Output("add_task_input", "value", allow_duplicate=True),
-    Input("generate_tasks_btn", "n_clicks"),
-    State("add_description", "value"),
-    prevent_initial_call=True
-)
-def generate_tasks(n, description):
-    if not description:
-        return [], ""
-
-    tasks = extractor.extract(description)
-    return tasks, ""
-
-
 # --- Add/Delete Tasks ---
 @callback(
     Output("add_task_store", "data", allow_duplicate=True),
