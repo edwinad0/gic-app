@@ -1,4 +1,4 @@
-from dash import html, dcc, callback, Input, Output, State, register_page
+from dash import html, register_page
 import dash_bootstrap_components as dbc
 
 register_page(__name__, path="/questions")
