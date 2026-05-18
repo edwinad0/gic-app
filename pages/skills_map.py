@@ -221,7 +221,7 @@ def build_report(n, role, person, target_role, skill_gap_html, career_gap_html, 
     """
 
     for t in tasks:
-        label = classify_task(t)
+        label = classifier.predict(t)
         task_table += f"""
         <tr>
             <td style='border:1px solid #ccc;padding:8px;'>{t}</td>
