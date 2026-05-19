@@ -205,54 +205,71 @@ def build_report(n, role, person, target_role, skill_gap_html, career_gap_html, 
     profiles = get_all_profiles()
     person_name = next((p[1].title() for p in profiles if p[0] == person), str(person))
 
-    # RADAR CHART
+    # -----------------------------
+    # RADAR CHART (HIGH RES)
+    # -----------------------------
     radar_fig = go.Figure(radar_fig_dict)
-    radar_img = fig_to_base64(radar_fig)
+    buffer = BytesIO()
+    radar_fig.write_image(buffer, format="png", scale=3)
+    radar_img = "data:image/png;base64," + base64.b64encode(buffer.getvalue()).decode()
 
-    # TASK CLASSIFICATION
-    # Build task classification table
+    # -----------------------------
+    # TASK TABLE (COLOURED LABELS)
+    # -----------------------------
     tasks = get_tasks_for_person_id(person)
+
+    label_class = {
+        "Automatable": "label-automatable",
+        "Augmentable": "label-augmentable",
+        "Human-Critical": "label-human"
+    }
+
     task_table = """
-    <table style='width:100%;border-collapse:collapse;font-size:14px;'>
-        <tr style='background:#e9e9e9;'>
-            <th style='border:1px solid #ccc;padding:8px;text-align:left;'>Task</th>
-            <th style='border:1px solid #ccc;padding:8px;text-align:left;'>Classification</th>
+    <table class='task-table'>
+        <tr>
+            <th>Task</th>
+            <th>Classification</th>
         </tr>
     """
 
     for t in tasks:
         label = classifier.predict(t)
+        css = label_class[label]
         task_table += f"""
         <tr>
-            <td style='border:1px solid #ccc;padding:8px;'>{t}</td>
-            <td style='border:1px solid #ccc;padding:8px;font-weight:bold;'>{label}</td>
+            <td>{t}</td>
+            <td class='{css}'>{label}</td>
         </tr>
         """
 
     task_table += "</table>"
 
-    # CURRENT ROLE SKILLS
+    # -----------------------------
+    # SKILL GAP SECTIONS
+    # -----------------------------
     sg_top10, _, sg_have, _, sg_need = skill_gap_html["props"]["children"]
-
-    # CAREER PROGRESSION 
-    if target_role and isinstance(career_gap_html, dict):
-        cp_top10, _, cp_have, _, cp_need = career_gap_html["props"]["children"]
-    else:
-        cp_top10 = cp_have = cp_need = ""
 
     sg_top10_html = render(sg_top10)
     sg_have_html = render(sg_have)
     sg_need_html = render(sg_need)
 
-    cp_top10_html = render(cp_top10) if cp_top10 else ""
-    cp_have_html = render(cp_have) if cp_have else ""
-    cp_need_html = render(cp_need) if cp_need else ""
+    # -----------------------------
+    # CAREER PROGRESSION
+    # -----------------------------
+    if target_role and isinstance(career_gap_html, dict):
+        cp_top10, _, cp_have, _, cp_need = career_gap_html["props"]["children"]
+        cp_top10_html = render(cp_top10)
+        cp_have_html = render(cp_have)
+        cp_need_html = render(cp_need)
+    else:
+        cp_top10_html = cp_have_html = cp_need_html = ""
 
-    # Load main template
+    # -----------------------------
+    # LOAD TEMPLATES
+    # -----------------------------
     with open(MAIN_TEMPLATE, "r") as f:
         template = f.read()
 
-    # Load career section if needed
     if target_role:
         with open(CAREER_TEMPLATE, "r") as f:
             career_template = f.read()
@@ -266,6 +283,9 @@ def build_report(n, role, person, target_role, skill_gap_html, career_gap_html, 
     else:
         career_section = ""
 
+    # -----------------------------
+    # FINAL HTML
+    # -----------------------------
     html_string = template.format(
         person_name=person_name,
         role=role,
