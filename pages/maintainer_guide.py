@@ -8,7 +8,7 @@ layout = dbc.Container([
     html.Hr(),
 
     html.P("""
-        This guide explains how to update, maintain, and retrain the two machine learning models 
+        This guide explains how to update, maintain, and retrain the machine learning model 
         used in the Skills & Task Intelligence Platform.
     """),
     html.Div([
@@ -29,7 +29,7 @@ layout = dbc.Container([
         html.Ul([
             html.Li("Click the 'Retrain Model' button on the training data page."),
             html.Li("The system will rebuild the TF-IDF vectorizer and Logistic Regression model."),
-            html.Li("The updated model is saved automatically to models/classifier.pkl."),
+            html.Li("The updated model is saved automatically to models/task_classifier.pkl."),
         ]),
 
         html.Hr(),

@@ -15,6 +15,9 @@ classifier = TaskClassifier()
 register_page(__name__, path="/role_analysis")
 
 
+# ------------------------------------------------------------
+# BADGES
+# ------------------------------------------------------------ 
 def confidence_badge(conf):
     """
     Colour code confidence Scores
@@ -25,6 +28,20 @@ def confidence_badge(conf):
         "danger"
     )
     return dbc.Badge(f"{conf:.0%}", color=color, className="ms-2")
+
+
+def classification_badge(label):
+    """
+    Colour code classification labels
+    """
+    colour = {
+        "Automatable": "#064789",      
+        "Augmentable": "#427aa1",      
+        "Human-Critical": "#ffa69e",  
+    }.get(label, "secondary")
+
+    return dbc.Badge(label, color=colour, className="ms-2")
+
 
 
 # ------------------------------------------------------------
@@ -106,7 +123,7 @@ def show_skills(title):
         task_rows = [
             html.Tr([
                 html.Td(task),
-                html.Td(label),
+                html.Td(classification_badge(label)),
                 html.Td(confidence_badge(confidence))
             ])
             for task, label, confidence in classified
@@ -156,7 +173,7 @@ def show_skills(title):
                 html.Div(
                     style={
                         "width": f"{auto_pct}%",
-                        "backgroundColor": "#1F32E0",  
+                        "backgroundColor": "#064789",  
                         "height": "30px",
                         "display": "inline-block",
                         "textAlign": "center",
@@ -170,7 +187,7 @@ def show_skills(title):
                 html.Div(
                     style={
                         "width": f"{aug_pct}%",
-                        "backgroundColor": "#ffc107",  
+                        "backgroundColor": "#427aa1",  
                         "height": "30px",
                         "display": "inline-block",
                         "textAlign": "center",
@@ -184,7 +201,7 @@ def show_skills(title):
                 html.Div(
                     style={
                         "width": f"{human_pct}%",
-                        "backgroundColor": "#50c21b",  
+                        "backgroundColor": "#ffa69e",  
                         "height": "30px",
                         "display": "inline-block",
                         "textAlign": "center",

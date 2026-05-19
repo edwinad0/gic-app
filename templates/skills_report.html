@@ -1,52 +1,54 @@
-<div style="padding:40px;font-family:Arial;line-height:1.6;max-width:1100px;margin:auto;color:#222;">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
 
-    <div style="display:flex;flex-direction:row;align-items:center;justify-content:space-between;margin-bottom:50px;gap:30px;">
+<body style="font-family: Segoe UI, sans-serif; margin: 40px; color: #222;">
 
-        <!-- LEFT COLUMN: HEADER -->
-        <div style="flex:1;padding:10px;">
-            <h1 style="margin:0;font-size:32px;color:#003366;">Skills Report</h1>
-            <h2 style="margin:8px 0 0 0;font-size:24px;color:#005599;">{person_name}</h2>
-            <p style="margin:6px 0 0 0;font-size:16px;"><strong>Current Role:</strong> {role}</p>
-            <p style="margin:6px 0 0 0;font-size:14px;color:#555;">{date}</p>
-        </div>
-
-        <!-- RIGHT COLUMN: RADAR -->
-        <div style="flex:1;padding:10px;text-align:center;">
-
-            <!-- NEW TITLE + SUBTITLE -->
-            <h2 style="margin:0 0 6px 0;font-size:22px;color:#003366;">Task Radar</h2>
-            <p style="margin:0 0 12px 0;font-size:14px;color:#555;">
-                This radar chart shows the percentage distribution of classified tasks.
-            </p>
-
-            <img src="{radar_img}" style="width:360px;border-radius:8px;border:1px solid #ddd;padding:6px;background:white;box-shadow:0 2px 6px rgba(0,0,0,0.08);">
-        </div>
-
-    </div>
-
-    <!-- TASK CLASSIFICATION SUMMARY -->
-    <div style="padding:20px;border:1px solid #ddd;border-radius:6px;background:#f7f7f7;margin-bottom:30px;">
-        <h2 style="margin-top:0;color:#003366;">Task Classification Summary</h2>
-        <p style="margin:0 0 12px 0;font-size:14px;color:#555;">
-            All tasks performed by this employee and how they are classified by the model.
-        </p>
-
-        {task_table}
-    </div>
-
-    <!-- CURRENT ROLE AND SKILLS -->
-    <div style="margin-bottom:30px;">
-        <div style="padding:10px;border:1px solid #ddd;border-radius:6px;background:#fafafa;margin-bottom:25px;">
-            <h2 style="margin-top:0;color:#003366;">Current Role & Skills</h2>
-            {sg_top10}
-            <br>
-            {sg_have}
-            <br>
-            {sg_need}
-        </div>
-
-        {career_section}
-    </div>
-
-
+<!-- COVER PAGE -->
+<div style="text-align: center; margin-top: 150px;">
+    <h1 style="color:#0A84FF; margin-bottom: 10px;">Skills Intelligence Report</h1>
+    <h2 style="color:#0A84FF; margin-bottom: 5px;">{person_name}</h2>
+    <h3 style="color:#0A84FF; margin-bottom: 5px;">{role}</h3>
+    <p style="margin-top: 40px; color: #666;">{date}</p>
 </div>
+
+<div style="page-break-before: always;"></div>
+
+<!-- SKILL GAP -->
+<div style="margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #ddd;">
+    <h2 style="color:#0A84FF;">Skill Gap Analysis</h2>
+
+    <div style="background:#fafafa; border:1px solid #e2e2e2; border-radius:8px; padding:16px; margin-bottom:20px;">
+        {sg_top10}
+    </div>
+
+    <div style="background:#fafafa; border:1px solid #e2e2e2; border-radius:8px; padding:16px; margin-bottom:20px;">
+        {sg_have}
+    </div>
+
+    <div style="background:#fafafa; border:1px solid #e2e2e2; border-radius:8px; padding:16px; margin-bottom:20px;">
+        {sg_need}
+    </div>
+</div>
+
+<div style="page-break-before: always;"></div>
+
+<!-- RADAR -->
+<div style="margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #ddd;">
+    <h2 style="color:#0A84FF;">Task Radar</h2>
+    <img src="{radar_img}" style="width: 380px;">
+</div>
+
+<!-- TASK TABLE -->
+<div style="margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #ddd;">
+    <h2 style="color:#0A84FF;">Task Classification</h2>
+    {task_table}
+</div>
+
+<!-- CAREER SECTION -->
+{career_section}
+
+</body>
+</html>
