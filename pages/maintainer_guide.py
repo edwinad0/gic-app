@@ -34,29 +34,29 @@ layout = dbc.Container([
 
         html.Hr(),
 
-        html.H3("2. Task Extractor Model"),
-        html.P("""
-            This model identifies which sentences in a job description are actual tasks.
-            It is trained using the data stored in the 'Extractor Model Training Data' page.
-        """),
+        # html.H3("2. Task Extractor Model"),
+        # html.P("""
+        #     This model identifies which sentences in a job description are actual tasks.
+        #     It is trained using the data stored in the 'Extractor Model Training Data' page.
+        # """),
 
-        html.H4("How to update the extractor training data"),
-        html.Ul([
-            html.Li("Go to the 'Extractor Model Training Data' page."),
-            html.Li("Add new sentences labelled as task (1) or not-task (0)."),
-            html.Li("Edit or delete existing samples as needed."),
-        ]),
+        # html.H4("How to update the extractor training data"),
+        # html.Ul([
+        #     html.Li("Go to the 'Extractor Model Training Data' page."),
+        #     html.Li("Add new sentences labelled as task (1) or not-task (0)."),
+        #     html.Li("Edit or delete existing samples as needed."),
+        # ]),
 
-        html.H4("How to retrain the extractor model"),
-        html.Ul([
-            html.Li("Click the 'Retrain Extractor Model' button on the extractor training page."),
-            html.Li("The system will rebuild the TF-IDF vectorizer and Logistic Regression model."),
-            html.Li("The updated model is saved automatically to models/task_extractor.pkl."),
-        ]),
+        # html.H4("How to retrain the extractor model"),
+        # html.Ul([
+        #     html.Li("Click the 'Retrain Extractor Model' button on the extractor training page."),
+        #     html.Li("The system will rebuild the TF-IDF vectorizer and Logistic Regression model."),
+        #     html.Li("The updated model is saved automatically to models/task_extractor.pkl."),
+        # ]),
 
-        html.Hr(),
+        # html.Hr(),
 
-        html.H3("3. Best Practices"),
+        html.H3("2. Best Practices"),
         html.Ul([
             html.Li("Keep training data balanced between classes."),
             html.Li("Add real-world examples regularly to improve accuracy."),
@@ -67,7 +67,7 @@ layout = dbc.Container([
 
         html.Hr(),
 
-        html.H3("4. Troubleshooting"),
+        html.H3("3. Troubleshooting"),
         html.Ul([
             html.Li("If extraction accuracy drops, add more negative examples."),
             html.Li("If classification becomes inconsistent, review ambiguous samples."),

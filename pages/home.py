@@ -33,6 +33,16 @@ def layout():
 
             html.Hr(),
 
+            html.H3("How does the task classifier work?"),
+            html.P(["The model has been trained on lots of real tasks, so when you give it a new one, ",
+                    html.B("it recognises patterns"),
+                    "in the wording and matches it to the category that most similar "
+                    "tasks belonged to. It also gives a confidence score to show how sure it is about its choice.​"
+            ]),
+            html.P("Maintainers of the application can update the training data and retrain the model"),
+
+            html.Hr(),
+
             html.Img(
                 src="/assets/user-guide.png",
                 style={
