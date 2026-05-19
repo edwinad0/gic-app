@@ -250,16 +250,19 @@ def modify_tasks(add_submit, delete_clicks, new_task, tasks):
 
     trigger = ctx.triggered[0]["prop_id"]
 
-    if "mp_task_input" in trigger:
-        if new_task:
-            tasks.append(new_task.strip())
+    # ADD
+    if trigger.startswith("mp_task_input"):
+        if new_task and len(new_task.strip()) > 3:
+            tasks.append(new_task.strip().capitalize())
         return tasks, ""
 
-    if "mp_delete_task" in trigger:
+    # DELETE
+    if "\"mp_delete_task\"" in trigger:
         triggered_id = eval(trigger.split(".")[0])
         task_to_delete = triggered_id["task"]
         tasks = [t for t in tasks if t != task_to_delete]
         return tasks, ""
+
 
     raise PreventUpdate
 
@@ -298,11 +301,12 @@ def modify_skills(add_submit, delete_clicks, new_skill, skills):
             skills.append(new_skill.strip().title())
         return skills, ""
 
-    if "mp_delete_skill" in trigger:
+    if "\"mp_delete_skill\"" in trigger:
         triggered_id = eval(trigger.split(".")[0])
         skill_to_delete = triggered_id["skill"]
         skills = [s for s in skills if s != skill_to_delete]
         return skills, ""
+
 
     raise PreventUpdate
 

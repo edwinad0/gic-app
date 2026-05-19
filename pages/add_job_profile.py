@@ -64,7 +64,7 @@ layout = dbc.Container([
     dbc.Label("Title"),
     dbc.Input(id="add_title", placeholder="Job title", className="mb-2"),
 
-    dbc.Label("Grade"),
+    dbc.Label("Grade (optional)"),
     dbc.Input(id="add_grade", placeholder="Grade", className="mb-2"),
 
     dbc.Label("Description (optional)"),
@@ -78,7 +78,7 @@ layout = dbc.Container([
     # ---------------- TASKS ----------------
     html.H5("Tasks"),
     dcc.Store(id="add_task_store", data=[]),
-
+ 
     dbc.Textarea(
         id="add_task_input",
         placeholder="Add a task and press Enter",
@@ -128,7 +128,7 @@ def modify_tasks(add_submit, delete_clicks, new_task, tasks):
 
     if "add_task_input" in trigger:
         if new_task and len(new_task.strip()) > 3:
-            tasks.append(new_task.strip())
+            tasks.append(new_task.strip().capitalize())
         return tasks, ""
 
     if "delete_task_add" in trigger:

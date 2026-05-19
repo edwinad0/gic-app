@@ -33,9 +33,9 @@ def layout():
 
             html.Hr(),
 
-            html.H3("How does the task classifier work?"),
-            html.P(["The model has been trained on lots of real tasks, so when you give it a new one, ",
-                    html.B("it recognises patterns"),
+            html.H3("How Does The Task Classifier Work?"),
+            html.P(["The model has been trained on lots of real tasks, so when you give it a new one, it ",
+                    html.B("recognises patterns "),
                     "in the wording and matches it to the category that most similar "
                     "tasks belonged to. It also gives a confidence score to show how sure it is about its choice.​"
             ]),
